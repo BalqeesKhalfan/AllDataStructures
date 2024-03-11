@@ -9,6 +9,7 @@ public class TextEditor {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter 'help' to see available commands.");
 
         // Continuous loop until exit command is given
         while (true) {
@@ -35,7 +36,10 @@ public class TextEditor {
         String command = tokens[0].toLowerCase();
 
         // Check the command and execute the corresponding functionality
-        if (command.equals("append")) {
+        if (input.equals("help")) {
+            printHelpList();
+        } else if ( (command.equals("append"))) {
+
             if (tokens.length < 2) {
                 // Handle case when there are insufficient arguments for append command
                 System.out.println("Invalid input for append command");
@@ -63,6 +67,13 @@ public class TextEditor {
         }
     }
 
+    private static void printHelpList() {
+        System.out.println("Available commands:");
+        System.out.println("- append <text>: Add new text to the end of the current text.");
+        System.out.println("- remove <count>: Delete the specified number of characters from the end of the current text.");
+        System.out.println("- display: Show the current content of the text.");
+        System.out.println("- undo: Revert the text to the state before the most recent append or remove operation.");
+    }
     // Append text to the current state
     private static void appendText(String text) {
         // Push current state to stack for undo
@@ -73,7 +84,7 @@ public class TextEditor {
     }
 
     // Remove characters from the end of the current state
-    private static void removeChars(int n) {
+    private static void removeChars(Integer n) {
         if (n >= currentText.length()) {
             // If n is greater than or equal to the length of the current text, set text to empty
             currentText = "";
